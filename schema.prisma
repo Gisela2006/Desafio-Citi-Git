@@ -1,0 +1,43 @@
+// Documentação do Prisma Schema: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  nome          String        
+  conta         Conta
+  documento     String        @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum Conta {
+  CPF
+  CNPJ
+}
+
+model Planta {
+  id            Int          @id @default(autoincrement())
+  nome          String
+  especie       String
+  preco         Int
+  estoque       Int
+  luminosidade  Luminosidade
+  petFriendly   Boolean
+  regaACadaDias Int
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+enum Luminosidade {
+  SOMBRA
+  MEIA_SOMBRA
+  SOL_PLENO
+}
